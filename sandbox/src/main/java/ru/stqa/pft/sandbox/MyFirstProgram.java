@@ -1,7 +1,5 @@
 package ru.stqa.pft.sandbox;
 
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
-
 public class MyFirstProgram {
 
     public static void main(String[] args) {
@@ -20,9 +18,4 @@ public class MyFirstProgram {
     public static void hello(String somebody) {
       System.out.println("Hello, " + somebody + "!");
     }
-
-    public static double area(Rectangle r) {
-      return r.a * r.b;
-    }
-
 }

@@ -19,18 +19,18 @@ public class GroupCreationTests2 {
     public void setUp() throws Exception {
         wd = new FirefoxDriver(new FirefoxBinary(new File("/Users/checkbox/Applications/Firefox.app/Contents/MacOS/firefox")), new FirefoxProfile());
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        login();
+        login("secret", "admin");
 
     }
 
-    private void login() {
+    private void login(String password, String username) {
         wd.get("http://localhost/addressbook/group.php");
         wd.findElement(By.name("pass")).click();
         wd.findElement(By.name("pass")).clear();
-        wd.findElement(By.name("pass")).sendKeys("secret");
+        wd.findElement(By.name("pass")).sendKeys(password);
         wd.findElement(By.name("user")).click();
         wd.findElement(By.name("user")).clear();
-        wd.findElement(By.name("user")).sendKeys("admin");
+        wd.findElement(By.name("user")).sendKeys(username);
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
 
@@ -38,7 +38,7 @@ public class GroupCreationTests2 {
     public void GroupCreationTests2() {
         gotoGroupPage();
         initGroupCreation();
-        fillGroupForm();
+        fillGroupForm(new GroupData2("test4", "test5", "test6"));
         submitGroupCreation();
         returnToGroupPage();
     }
@@ -51,16 +51,16 @@ public class GroupCreationTests2 {
         wd.findElement(By.name("submit")).click();
     }
 
-    private void fillGroupForm() {
+    private void fillGroupForm(GroupData2 groupData2) {
         wd.findElement(By.name("group_name")).click();
         wd.findElement(By.name("group_name")).clear();
-        wd.findElement(By.name("group_name")).sendKeys("test4");
+        wd.findElement(By.name("group_name")).sendKeys(groupData2.getName());
         wd.findElement(By.name("group_header")).click();
         wd.findElement(By.name("group_header")).clear();
-        wd.findElement(By.name("group_header")).sendKeys("test5");
+        wd.findElement(By.name("group_header")).sendKeys(groupData2.getHeader());
         wd.findElement(By.name("group_footer")).click();
         wd.findElement(By.name("group_footer")).clear();
-        wd.findElement(By.name("group_footer")).sendKeys("test6");
+        wd.findElement(By.name("group_footer")).sendKeys(groupData2.getFooter());
     }
 
     private void initGroupCreation() {

@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -17,15 +16,6 @@ public class ApplicationManager {
   private ContactHelper contactHelper;
   private GroupHelper groupHelper;
   private NavigationHelper navigationHelper;
-
-  public static boolean isAlertPresent(FirefoxDriver wd) {
-      try {
-          wd.switchTo().alert();
-          return true;
-      } catch (NoAlertPresentException e) {
-          return false;
-      }
-  }
 
   public void init() {
     wd = new FirefoxDriver(new FirefoxBinary(new File("/Users/checkbox/Applications/Firefox.app/Contents/MacOS/firefox")), new FirefoxProfile());

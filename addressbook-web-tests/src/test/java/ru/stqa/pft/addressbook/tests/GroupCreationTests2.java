@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class GroupCreationTests2 {
     FirefoxDriver wd;
-    
+
     @BeforeMethod
     public void setUp() throws Exception {
         wd = new FirefoxDriver(new FirefoxBinary(new File("/Users/checkbox/Applications/Firefox.app/Contents/MacOS/firefox")), new FirefoxProfile());
@@ -76,7 +76,7 @@ public class GroupCreationTests2 {
     public void tearDown() {
         wd.quit();
     }
-    
+
     public static boolean isAlertPresent(FirefoxDriver wd) {
         try {
             wd.switchTo().alert();

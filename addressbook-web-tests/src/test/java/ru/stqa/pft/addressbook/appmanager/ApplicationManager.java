@@ -12,13 +12,11 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
 
-  protected FirefoxDriver wd;
+  private FirefoxDriver wd;
 
   private ContactHelper contactHelper;
   private GroupHelper groupHelper;
-
-  public ApplicationManager() {
-  }
+  private NavigationHelper navigationHelper;
 
   public static boolean isAlertPresent(FirefoxDriver wd) {
       try {
@@ -35,6 +33,7 @@ public class ApplicationManager {
     wd.get("http://localhost/addressbook/index.php");
     groupHelper = new GroupHelper(wd);
     contactHelper = new ContactHelper(wd);
+    navigationHelper = new NavigationHelper(wd);
     login("admin", "secret");
   }
 
@@ -49,11 +48,11 @@ public class ApplicationManager {
   }
 
   public void gotoGroupPage() {
-      wd.findElement(By.linkText("groups")).click();
+    navigationHelper.gotoGroupPage();
   }
 
   public void goToAddNewPage() {
-      wd.findElement(By.linkText("add new")).click();
+    navigationHelper.goToAddNewPage();
   }
 
   public void stop() {
@@ -61,7 +60,7 @@ public class ApplicationManager {
   }
 
   public void goToHomePage() {
-      wd.findElement(By.linkText("home")).click();
+    navigationHelper.goToHomePage();
   }
 
   public GroupHelper getGroupHelper() {

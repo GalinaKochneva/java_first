@@ -14,10 +14,10 @@ public class NavigationHelper extends BaseHelper {
   }
 
   public void goToAddNewPage() {
-    wd.findElement(By.linkText("add new")).click();
+    click(By.linkText("add new"));
   }
 
   public void goToHomePage() {
-    wd.findElement(By.linkText("home")).click();
+    click(By.linkText("home"));
   }
 }

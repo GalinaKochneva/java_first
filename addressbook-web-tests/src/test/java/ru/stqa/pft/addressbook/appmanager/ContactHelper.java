@@ -39,4 +39,8 @@ public class ContactHelper extends BaseHelper {
   public void openContactForEdit() {
     click(By.xpath("//tr[@class='']/td[8]/a/img"));
   }
+
+  public void submitContactModification() {
+    click(By.name("update"));
+  }
 }

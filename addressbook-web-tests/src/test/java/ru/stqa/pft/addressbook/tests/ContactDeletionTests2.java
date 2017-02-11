@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
+import java.util.List;
+
 public class ContactDeletionTests2 extends TestBase {
 
     @Test
@@ -14,9 +16,10 @@ public class ContactDeletionTests2 extends TestBase {
             int after = app.getContactHelper().getContactCount();
             Assert.assertEquals(after, 1);
         }
-        int before = app.getContactHelper().getContactCount();
-        app.getContactHelper().openContactForEdit(before - 1);
+        List<ContactData> before = app.getContactHelper().getContactList();
+        app.getContactHelper().openContactForEdit(before.size() - 1);
         app.getContactHelper().deleteContact();
+        List<ContactData> after = app.getContactHelper().getContactList();
     }
 
 }

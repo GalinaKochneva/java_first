@@ -55,7 +55,7 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void openContactForEdit(int index) {
-    wd.findElements(By.xpath("//tr[@class='']/td[8]/a/img")).get(index).click();
+    wd.findElements(By.xpath("//tr/td[8]/a/img")).get(index).click();
   }
 
   public void submitContactModification() {
@@ -86,7 +86,8 @@ public class ContactHelper extends BaseHelper {
       String firsttName = element.findElement(By.xpath("td[3]")).getText();
       String email = element.findElement(By.xpath("td[5]")).getText();
       String mobile = element.findElement(By.xpath("td[6]")).getText();
-      ContactData contact = new ContactData(firsttName, lastName, mobile, email, "[none]");
+      String id = element.findElement(By.tagName("input")).getAttribute("value");
+      ContactData contact = new ContactData(id, firsttName, lastName, mobile, email, "[none]");
       contacts.add(contact);
     }
     return contacts;

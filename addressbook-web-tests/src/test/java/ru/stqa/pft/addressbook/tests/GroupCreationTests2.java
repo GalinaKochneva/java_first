@@ -35,7 +35,7 @@ public class GroupCreationTests2 {
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
 
-    @Test
+    @Test(enabled = false)
     public void GroupCreationTests2() {
         gotoGroupPage();
         initGroupCreation();

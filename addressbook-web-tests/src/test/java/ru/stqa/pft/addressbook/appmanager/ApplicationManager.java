@@ -44,7 +44,7 @@ public class ApplicationManager {
   }
 
   public void gotoGroupPage() {
-    navigationHelper.gotoGroupPage();
+    navigationHelper.groupPage();
   }
 
   public void goToAddNewPage() {
@@ -56,14 +56,18 @@ public class ApplicationManager {
   }
 
   public void goToHomePage() {
-    navigationHelper.goToHomePage();
+    navigationHelper.homePage();
   }
 
-  public GroupHelper getGroupHelper() {
+  public GroupHelper group() {
     return groupHelper;
   }
 
-  public ContactHelper getContactHelper() {
+  public NavigationHelper goTo() {
+    return navigationHelper;
+  }
+
+  public ContactHelper contact() {
     return contactHelper;
   }
 }

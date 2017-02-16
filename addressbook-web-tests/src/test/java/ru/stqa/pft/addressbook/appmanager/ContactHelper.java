@@ -62,12 +62,22 @@ public class ContactHelper extends BaseHelper {
     click(By.name("update"));
   }
 
+  public void goToHomePage() {
+    click(By.linkText("home page"));
+  }
 
   public void createContact(ContactData contact) {
     navigationHelper.goToAddNewPage();
     fillContactForm(contact, true);
     inputContactCreation();
     navigationHelper.goToHomePage();
+  }
+
+  public void modifyContact(int index, ContactData contact) {
+    openContactForEdit(index);
+    fillContactForm(contact, false);
+    submitContactModification();
+    goToHomePage();
   }
 
   public boolean isThereAContact() {

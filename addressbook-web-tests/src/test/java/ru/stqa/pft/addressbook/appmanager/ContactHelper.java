@@ -80,6 +80,7 @@ public class ContactHelper extends BaseHelper {
     navigationHelper.goToAddNewPage();
     fillContactForm(contact, true);
     inputContactCreation();
+    contactCache = null;
     navigationHelper.homePage();
   }
 
@@ -87,6 +88,7 @@ public class ContactHelper extends BaseHelper {
     openContactForEditById(contact.getId());
     fillContactForm(contact, false);
     submitContactModification();
+    contactCache = null;
     goToHomePage();
   }
 
@@ -99,6 +101,7 @@ public class ContactHelper extends BaseHelper {
   public void delete(ContactData contact) {
     selectContactById(contact.getId());
     deleteContact();
+    contactCache = null;
     goToHomePage();
   }
 
@@ -124,8 +127,14 @@ public class ContactHelper extends BaseHelper {
     return contacts;
   }
 
+  private Contacts contactCache = null;
+
   public Contacts all() {
-    Contacts contacts = new Contacts();
+    if (contactCache != null) {
+      return new Contacts(contactCache);
+    }
+
+    contactCache = new Contacts();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       String lastName = element.findElement(By.xpath("td[2]")).getText();
@@ -133,9 +142,9 @@ public class ContactHelper extends BaseHelper {
       String email = element.findElement(By.xpath("td[5]")).getText();
       String mobile = element.findElement(By.xpath("td[6]")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      contacts.add(new ContactData().withId(id).withFirstname(firsttName).withLastname(lastName).withMobile(mobile).withEmail(email));
+      contactCache.add(new ContactData().withId(id).withFirstname(firsttName).withLastname(lastName).withMobile(mobile).withEmail(email));
     }
-    return contacts;
+    return new Contacts(contactCache);
   }
 
 }

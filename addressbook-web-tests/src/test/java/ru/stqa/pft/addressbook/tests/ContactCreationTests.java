@@ -12,11 +12,13 @@ public class ContactCreationTests extends TestBase {
   @Test
   public void testContactCreation() {
     Contacts before = app.contact().all();
-    ContactData contact = new ContactData().withFirstname("Fuffochka").withLastname("Namratova").withGroup("[none]");
+    ContactData contact = new ContactData().withFirstname("Fuffochka").withLastname("Namratova")
+            .withHomePhone("+7(927)").withMobilePhone("22-22").withWorkPhone("33 33 33").withGroup("[none]");
     app.contact().create(contact);
     Contacts after = app.contact().all();
     assertThat(app.contact().count(), equalTo(before.size() + 1));
-    assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    assertThat(after, equalTo(before.withAdded(
+            contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()).withHomePhone("+7927").withMobilePhone("2222").withWorkPhone("333333"))));
   }
 
   @Test

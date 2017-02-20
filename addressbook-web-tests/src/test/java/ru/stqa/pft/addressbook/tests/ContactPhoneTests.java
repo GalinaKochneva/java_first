@@ -22,9 +22,9 @@ public class ContactPhoneTests extends TestBase {
   }
 
   private String mergePhones(ContactData contact) {
-    return Stream.of(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone()).filter((s) -> ! s.equals(""))
-                    .map(ContactPhoneTests::cleaned)
-                    .collect(Collectors.joining("\n"));
+    return Stream.of(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone()).filter((s) -> !s.equals(""))
+            .map(ContactPhoneTests::cleaned)
+            .collect(Collectors.joining("\n"));
   }
 
   public static String cleaned(String phone) {

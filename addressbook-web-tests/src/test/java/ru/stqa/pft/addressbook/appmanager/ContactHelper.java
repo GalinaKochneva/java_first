@@ -128,9 +128,9 @@ public class ContactHelper extends BaseHelper {
       String lastName = element.findElement(By.xpath("td[2]")).getText();
       String firstName = element.findElement(By.xpath("td[3]")).getText();
       String email = element.findElement(By.xpath("td[5]")).getText();
-      String[] phones = (element.findElement(By.xpath("td[6]")).getText() + "\n\n").split("\n", 10);
+      String allPhones = (element.findElement(By.xpath("td[6]")).getText());
       contactCache.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName)
-              .withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]).withEmail(email));
+              .withAllPhones(allPhones).withEmail(email));
     }
     return new Contacts(contactCache);
   }

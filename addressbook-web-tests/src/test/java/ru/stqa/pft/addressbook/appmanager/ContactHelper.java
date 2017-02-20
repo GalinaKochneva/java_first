@@ -144,4 +144,15 @@ public class ContactHelper extends BaseHelper {
     return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
             .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withAddress(address).withEmail(email);
   }
+
+  public String infoFromDetailsPage(ContactData contact) {
+    openContactDetailsById(contact.getId());
+    String text = wd.findElement(By.id("content")).getText();
+    wd.navigate().back();
+    return text;
+  }
+
+  private void openContactDetailsById(int id) {
+    wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
+  }
 }

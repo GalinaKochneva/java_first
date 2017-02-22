@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.oneOf;
 
 public class ContactDetailsTests extends TestBase {
 
@@ -19,12 +19,14 @@ public class ContactDetailsTests extends TestBase {
     ContactData contactFromEditForm = app.contact().infoFromEditForm(contact);
     String infoFromDetailsPage = app.contact().infoFromDetailsPage(contact);
 
-    assertThat(mergeContactDetails(contactFromEditForm), equalTo(infoFromDetailsPage));
+    assertThat(infoFromDetailsPage,
+            oneOf(mergeContactDetails(contactFromEditForm, true),
+                    mergeContactDetails(contactFromEditForm, false)));
   }
 
-  private String mergeContactDetails(ContactData contact) {
-    return String.format("%s %s\n%s\n\nH: %s\nM: %s\nW: %s\n\n%s",
-            contact.getFirstname(), contact.getLastname(), contact.getAddress(), contact.getHomePhone(),
-            contact.getMobilePhone(), contact.getWorkPhone(), contact.getEmail());
+  private String mergeContactDetails(ContactData contact, boolean withPhoto) {
+    return String.format("%s %s\n%s%s\n\nH: %s\nM: %s\nW: %s\n\n%s",
+            contact.getFirstname(), contact.getLastname(), withPhoto ? "\n" : "", contact.getAddress(),
+            contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(), contact.getEmail());
   }
 }

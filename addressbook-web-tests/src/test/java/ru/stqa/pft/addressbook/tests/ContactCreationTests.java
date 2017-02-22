@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -15,9 +16,11 @@ public class ContactCreationTests extends TestBase {
   @Test
   public void testContactCreation() {
     Contacts before = app.contact().all();
+    File photo = new File("src/test/resources/rose.jpg");
     ContactData contact = new ContactData().withFirstname("Fuffochka").withLastname("Namratova")
             .withAddress("1202 Emerald st., Mountain View, USA")
-            .withEmail("Naamratova@gmail.com").withHomePhone("+7(927)5").withMobilePhone("22-22").withWorkPhone("33 33 33").withGroup("[none]");
+            .withEmail("Naamratova@gmail.com").withHomePhone("+7(927)5").withMobilePhone("22-22")
+            .withWorkPhone("33 33 33").withGroup("[none]").withPhoto(photo);
     app.contact().create(contact);
     Contacts after = app.contact().all();
     assertThat(app.contact().count(), equalTo(before.size() + 1));
@@ -31,6 +34,7 @@ public class ContactCreationTests extends TestBase {
             .map(ContactPhoneTests::cleaned)
             .collect(Collectors.joining("\n"));
   }
+
 
   @Test
   public void testBadContactCreation() {

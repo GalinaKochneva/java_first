@@ -5,7 +5,10 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,19 +21,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactCreationTests extends TestBase {
 
   @DataProvider
-  public Iterator<Object[]> validContacts() {
+  public Iterator<Object[]> validContacts() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
     File photo = new File("src/test/resources/rose.jpg");
-    list.add(new Object[] {new ContactData().withFirstname("Ryan").withLastname("Tedder").withAddress("Colorado, USA")
-            .withEmail("Ryan@gmail.com").withHomePhone("+7(927)5673353").withMobilePhone("22-22-22")
-            .withWorkPhone("33 33 33").withPhoto(photo).withGroup("[none]")});
-    list.add(new Object[] {new ContactData().withFirstname("Ryan 2").withLastname("Tedder 2").withAddress("Colorado, USA 2")
-            .withEmail("Ryan@gmail.com 2").withHomePhone("+7(927)5673353 2").withMobilePhone("22-22-22 2")
-            .withWorkPhone("33 33 33 3").withPhoto(photo)
-            .withGroup("[none]")});
-    list.add(new Object[] {new ContactData().withFirstname("Ryan 3").withLastname("Tedder 3")
-            .withAddress("Colorado, USA 3").withEmail("Ryan@gmail.com 3").withHomePhone("+7(927)5673353 3")
-            .withMobilePhone("22-22-22 3").withWorkPhone("33 33 33 3").withPhoto(photo).withGroup("[none]")});
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")));
+    String line = reader.readLine();
+    while (line != null) {
+      String[] split = line.split(";");
+      list.add(new Object[] {new ContactData().withFirstname(split[0]).withLastname(split[1]).withAddress(split[2])
+              .withEmail(split[3]).withHomePhone(split[4]).withMobilePhone(split[5]).withWorkPhone(split[6])
+              .withPhoto(photo).withGroup("[none]")});
+      line = reader.readLine();
+    }
     return list.iterator();
   }
 

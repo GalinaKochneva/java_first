@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -55,29 +54,22 @@ public class ContactCreationTests extends TestBase {
 
   @Test(dataProvider = "validContactsFromJson")
   public void testContactCreation(ContactData contact) {
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     app.contact().create(contact);
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     assertThat(after, equalTo(before.withAdded(
-            contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt())
-                    .withAllPhones(mergePhones(contact)).withWorkPhone(null).withMobilePhone(null).withHomePhone(null))));
-  }
-
-  private String mergePhones(ContactData contact) {
-    return Stream.of(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone()).filter((s) -> !s.equals(""))
-            .map(ContactPhoneTests::cleaned)
-            .collect(Collectors.joining("\n"));
+            contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
   }
 
 
   @Test
   public void testBadContactCreation() {
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData contact = new ContactData().withFirstname("Fuffochka'").withLastname("Namratova").withGroup("[none]");
     app.contact().create(contact);
     assertThat(app.contact().count(), equalTo(before.size()));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(before));
   }
 }

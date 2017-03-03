@@ -57,7 +57,7 @@ public class ContactData {
 
   @Expose
   @Transient
-  private String group;
+  private String group = "[none]";
 
   @Override
   public String toString() {
@@ -65,13 +65,21 @@ public class ContactData {
             "id=" + id +
             ", firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
+            ", address='" + address + '\'' +
+            ", homePhone='" + homePhone + '\'' +
+            ", mobilePhone='" + mobilePhone + '\'' +
+            ", workPhone='" + workPhone + '\'' +
+            ", allPhones='" + allPhones + '\'' +
+            ", email='" + email + '\'' +
+            ", group='" + group + '\'' +
+            ", photo='" + photo + '\'' +
             '}';
   }
 
   @Expose
   @Column(name = "photo")
   @Type(type = "text")
-  private String photo;
+  private String photo = "";
 
 
   public String getFirstname() {
@@ -111,7 +119,7 @@ public class ContactData {
   }
 
   public File getPhoto() {
-    if (photo == null) {
+    if ("".equals(photo)) {
       return null;
     }
     return new File(photo);
@@ -188,7 +196,9 @@ public class ContactData {
     if (mobilePhone != null ? !mobilePhone.equals(that.mobilePhone) : that.mobilePhone != null) return false;
     if (workPhone != null ? !workPhone.equals(that.workPhone) : that.workPhone != null) return false;
     if (allPhones != null ? !allPhones.equals(that.allPhones) : that.allPhones != null) return false;
-    return email != null ? email.equals(that.email) : that.email == null;
+    if (email != null ? !email.equals(that.email) : that.email != null) return false;
+    if (group != null ? !group.equals(that.group) : that.group != null) return false;
+    return photo != null ? photo.equals(that.photo) : that.photo == null;
   }
 
   @Override
@@ -202,6 +212,8 @@ public class ContactData {
     result = 31 * result + (workPhone != null ? workPhone.hashCode() : 0);
     result = 31 * result + (allPhones != null ? allPhones.hashCode() : 0);
     result = 31 * result + (email != null ? email.hashCode() : 0);
+    result = 31 * result + (group != null ? group.hashCode() : 0);
+    result = 31 * result + (photo != null ? photo.hashCode() : 0);
     return result;
   }
 }

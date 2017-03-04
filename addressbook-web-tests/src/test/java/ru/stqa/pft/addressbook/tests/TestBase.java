@@ -4,19 +4,22 @@ import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
+import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestBase {
 
-  org.slf4j.Logger logger = LoggerFactory.getLogger(TestBase.class);
+  private org.slf4j.Logger logger = LoggerFactory.getLogger(TestBase.class);
 
 
   protected static final ApplicationManager app
@@ -47,7 +50,7 @@ public class TestBase {
     logger.info("Stop test " + m.getName());
   }
 
-  public void verifyGroupListInUI() {
+  void verifyGroupListInUI() {
     if (Boolean.getBoolean("verifyUI")) {
       Groups dbGroups = app.db().groups();
       Groups uiGroups = app.group().all();
@@ -55,5 +58,21 @@ public class TestBase {
               .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
               .collect(Collectors.toSet())));
     }
+  }
+
+  void verifyContactListInUI() {
+    if (Boolean.getBoolean("verifyUI")) {
+      Contacts dbContacts = app.db().contacts();
+      Contacts uiContacts = app.contact().all();
+      assertThat(uiContacts, equalTo(dbContacts.stream()
+              .map((contact) -> new ContactData().withId(contact.getId()).withFirstname(contact.getFirstname())
+                      .withLastname(contact.getLastname()).withAddress(contact.getAddress()).withEmail(contact.getEmail())
+                      .withAllPhones(mergePhones(contact))).collect(Collectors.toSet())));
+    }
+  }
+  private String mergePhones(ContactData contact) {
+    return Stream.of(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone()).filter((s) -> !s.equals(""))
+            .map(ContactPhoneTests::cleaned)
+            .collect(Collectors.joining("\n"));
   }
 }

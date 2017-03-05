@@ -160,4 +160,11 @@ public class ContactHelper extends BaseHelper {
   private void openContactDetailsById(int id) {
     wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
   }
+
+  public void addSelectedContactsToGroup(String groupName) {
+    // выбрать группу в списке to_group
+    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupName);
+    // нажать кнопку с именем add
+    click(By.name("add"));
+  }
 }

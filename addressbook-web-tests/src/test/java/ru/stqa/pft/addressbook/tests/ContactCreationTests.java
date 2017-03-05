@@ -32,7 +32,7 @@ public class ContactCreationTests extends TestBase {
       }
       XStream xstream = new XStream();
       xstream.processAnnotations(ContactData.class);
-      List<ContactData> contacts = (List<ContactData>)xstream.fromXML(xml);
+      @SuppressWarnings("unchecked") List<ContactData> contacts = (List<ContactData>) xstream.fromXML(xml);
       return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
     }
   }
@@ -58,6 +58,7 @@ public class ContactCreationTests extends TestBase {
     app.contact().create(contact);
     Contacts after = app.db().contacts();
     assertThat(app.contact().count(), equalTo(before.size() + 1));
+    //noinspection OptionalGetWithoutIsPresent
     assertThat(after, equalTo(before.withAdded(
             contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
     verifyContactListInUI();
@@ -67,7 +68,7 @@ public class ContactCreationTests extends TestBase {
   @Test
   public void testBadContactCreation() {
     Contacts before = app.db().contacts();
-    ContactData contact = new ContactData().withFirstname("Fuffochka'").withLastname("Namratova").withGroup("[none]");
+    ContactData contact = new ContactData().withFirstname("Fuffochka'").withLastname("Namratova");
     app.contact().create(contact);
     assertThat(app.contact().count(), equalTo(before.size()));
     Contacts after = app.db().contacts();

@@ -7,6 +7,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -55,9 +57,10 @@ public class ContactData {
   @Type(type = "text")
   private String email;
 
-  @Expose
-  @Transient
-  private String group = "[none]";
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   @Override
   public String toString() {
@@ -71,7 +74,7 @@ public class ContactData {
             ", workPhone='" + workPhone + '\'' +
             ", allPhones='" + allPhones + '\'' +
             ", email='" + email + '\'' +
-            ", group='" + group + '\'' +
+            ", groups=" + groups +
             ", photo='" + photo + '\'' +
             '}';
   }
@@ -98,16 +101,16 @@ public class ContactData {
     return mobilePhone;
   }
 
-  public String getHomePhone() { return homePhone; }
+  public String getHomePhone() {
+    return homePhone;
+  }
 
-  public String getWorkPhone() { return workPhone; }
+  public String getWorkPhone() {
+    return workPhone;
+  }
 
   public String getEmail() {
     return email;
-  }
-
-  public String getGroup() {
-    return group;
   }
 
   public String getAllPhones() {
@@ -161,11 +164,6 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
   public ContactData withHomePhone(String homePhone) {
     this.homePhone = homePhone;
     return this;
@@ -179,6 +177,10 @@ public class ContactData {
   public ContactData withAddress(String address) {
     this.address = address;
     return this;
+  }
+
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   @Override
@@ -197,7 +199,7 @@ public class ContactData {
     if (workPhone != null ? !workPhone.equals(that.workPhone) : that.workPhone != null) return false;
     if (allPhones != null ? !allPhones.equals(that.allPhones) : that.allPhones != null) return false;
     if (email != null ? !email.equals(that.email) : that.email != null) return false;
-    if (group != null ? !group.equals(that.group) : that.group != null) return false;
+    if (groups != null ? !groups.equals(that.groups) : that.groups != null) return false;
     return photo != null ? photo.equals(that.photo) : that.photo == null;
   }
 
@@ -212,8 +214,13 @@ public class ContactData {
     result = 31 * result + (workPhone != null ? workPhone.hashCode() : 0);
     result = 31 * result + (allPhones != null ? allPhones.hashCode() : 0);
     result = 31 * result + (email != null ? email.hashCode() : 0);
-    result = 31 * result + (group != null ? group.hashCode() : 0);
+    result = 31 * result + (groups != null ? groups.hashCode() : 0);
     result = 31 * result + (photo != null ? photo.hashCode() : 0);
     return result;
+  }
+
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
   }
 }

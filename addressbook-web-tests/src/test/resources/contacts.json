@@ -7,7 +7,7 @@
     "mobilePhone": "333333 0",
     "workPhone": "888888 0",
     "email": "Ryan@gmail.com 0",
-    "group": "[none]"
+    "photo": ""
   },
   {
     "firstname": "Ryan 1",
@@ -17,7 +17,7 @@
     "mobilePhone": "333333 1",
     "workPhone": "888888 1",
     "email": "Ryan@gmail.com 1",
-    "group": "[none]"
+    "photo": ""
   },
   {
     "firstname": "Ryan 2",
@@ -27,6 +27,6 @@
     "mobilePhone": "333333 2",
     "workPhone": "888888 2",
     "email": "Ryan@gmail.com 2",
-    "group": "[none]"
+    "photo": ""
   }
 ]

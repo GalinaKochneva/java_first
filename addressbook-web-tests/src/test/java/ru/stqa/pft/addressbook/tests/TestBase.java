@@ -32,7 +32,7 @@ public class TestBase {
 
   @BeforeTest
   public void setUpTest() {
-    app.goToHomePage();
+    app.goTo().homePage();
   }
 
   @AfterSuite(alwaysRun = true)

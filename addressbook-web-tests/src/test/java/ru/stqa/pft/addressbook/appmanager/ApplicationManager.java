@@ -54,20 +54,8 @@ public class ApplicationManager {
     sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
   }
 
-  public void gotoGroupPage() {
-    navigationHelper.groupPage();
-  }
-
-  public void goToAddNewPage() {
-    navigationHelper.goToAddNewPage();
-  }
-
   public void stop() {
     wd.quit();
-  }
-
-  public void goToHomePage() {
-    navigationHelper.homePage();
   }
 
   public GroupHelper group() {

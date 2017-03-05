@@ -10,7 +10,7 @@ public class ContactsAddressTests extends TestBase {
 
   @Test
   public void testContactAddress() {
-    app.goToHomePage();
+    app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 

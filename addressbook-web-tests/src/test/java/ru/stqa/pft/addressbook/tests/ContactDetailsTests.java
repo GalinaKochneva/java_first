@@ -13,7 +13,7 @@ public class ContactDetailsTests extends TestBase {
 
   @Test
   public void testContactDetails() {
-    app.goToHomePage();
+    app.goTo().homePage();
     Contacts before = app.contact().all();
     ContactData contact = before.iterator().next();
     ContactData contactFromEditForm = app.contact().infoFromEditForm(contact);

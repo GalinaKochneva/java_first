@@ -32,7 +32,7 @@ public class GroupCreationTests extends TestBase {
       }
       XStream xstream = new XStream();
       xstream.processAnnotations(GroupData.class);
-      List<GroupData> groups = (List<GroupData>) xstream.fromXML(xml);
+      @SuppressWarnings("unchecked") List<GroupData> groups = (List<GroupData>) xstream.fromXML(xml);
       return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
   }
@@ -56,19 +56,20 @@ public class GroupCreationTests extends TestBase {
   @Test(dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) {
     Groups before = app.db().groups();
-    app.gotoGroupPage();
+    app.goTo().groupPage();
     app.group().create(group);
     Groups after = app.db().groups();
     assertThat(app.group().count(), equalTo(before.size() + 1));
+    //noinspection OptionalGetWithoutIsPresent
     assertThat(after, equalTo(
-            before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+            before.withAdded(group.withId(after.stream().mapToInt(GroupData::getId).max().getAsInt()))));
     verifyGroupListInUI();
   }
 
   @Test
   public void testBadGroupCreation() {
     Groups before = app.db().groups();
-    app.gotoGroupPage();
+    app.goTo().groupPage();
     GroupData group = new GroupData().withName("test'");
     app.group().create(group);
     assertThat(app.group().count(), equalTo(before.size()));

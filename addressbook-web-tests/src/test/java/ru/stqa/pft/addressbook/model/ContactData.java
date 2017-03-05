@@ -60,7 +60,7 @@ public class ContactData {
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "address_in_groups",
           joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
-  private Set<GroupData> groups = new HashSet<GroupData>();
+  private Set<GroupData> groups = new HashSet<>();
 
   @Override
   public String toString() {
@@ -128,12 +128,6 @@ public class ContactData {
     return new File(photo);
   }
 
-  public ContactData withPhoto(File photo) {
-    this.photo = photo.getPath();
-    return this;
-  }
-
-
   public ContactData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
     return this;
@@ -183,6 +177,7 @@ public class ContactData {
     return new Groups(groups);
   }
 
+  @SuppressWarnings("SimplifiableIfStatement")
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

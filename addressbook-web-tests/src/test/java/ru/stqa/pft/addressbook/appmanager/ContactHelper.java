@@ -167,4 +167,13 @@ public class ContactHelper extends BaseHelper {
     // нажать кнопку с именем add
     click(By.name("add"));
   }
+
+  public void filterContactsByGroup(String groupName) {
+    //выбрать нужную группу в group
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(groupName);
+  }
+
+  public void removeSelectedContactsFromGroup() {
+    click(By.name("remove"));
+  }
 }

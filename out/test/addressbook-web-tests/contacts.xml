@@ -1,0 +1,32 @@
+<list>
+  <contact>
+    <firstname>Ryan 0</firstname>
+    <lastname>Tedder 0</lastname>
+    <address>Colorado, USA 0</address>
+    <homePhone>777777777 0</homePhone>
+    <mobilePhone>333333 0</mobilePhone>
+    <workPhone>888888 0</workPhone>
+    <email>Ryan@gmail.com 0</email>
+    <group>[none]</group>
+  </contact>
+  <contact>
+    <firstname>Ryan 1</firstname>
+    <lastname>Tedder 1</lastname>
+    <address>Colorado, USA 1</address>
+    <homePhone>777777777 1</homePhone>
+    <mobilePhone>333333 1</mobilePhone>
+    <workPhone>888888 1</workPhone>
+    <email>Ryan@gmail.com 1</email>
+    <group>[none]</group>
+  </contact>
+  <contact>
+    <firstname>Ryan 2</firstname>
+    <lastname>Tedder 2</lastname>
+    <address>Colorado, USA 2</address>
+    <homePhone>777777777 2</homePhone>
+    <mobilePhone>333333 2</mobilePhone>
+    <workPhone>888888 2</workPhone>
+    <email>Ryan@gmail.com 2</email>
+    <group>[none]</group>
+  </contact>
+</list>

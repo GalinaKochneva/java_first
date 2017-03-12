@@ -1,0 +1,32 @@
+[
+  {
+    "firstname": "Ryan 0",
+    "lastname": "Tedder 0",
+    "address": "Colorado, USA 0",
+    "homePhone": "777777777 0",
+    "mobilePhone": "333333 0",
+    "workPhone": "888888 0",
+    "email": "Ryan@gmail.com 0",
+    "photo": ""
+  },
+  {
+    "firstname": "Ryan 1",
+    "lastname": "Tedder 1",
+    "address": "Colorado, USA 1",
+    "homePhone": "777777777 1",
+    "mobilePhone": "333333 1",
+    "workPhone": "888888 1",
+    "email": "Ryan@gmail.com 1",
+    "photo": ""
+  },
+  {
+    "firstname": "Ryan 2",
+    "lastname": "Tedder 2",
+    "address": "Colorado, USA 2",
+    "homePhone": "777777777 2",
+    "mobilePhone": "333333 2",
+    "workPhone": "888888 2",
+    "email": "Ryan@gmail.com 2",
+    "photo": ""
+  }
+]
